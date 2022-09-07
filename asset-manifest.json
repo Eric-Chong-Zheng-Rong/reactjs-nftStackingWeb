@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/reactjs-nftStackingWeb/static/css/main.43af11b1.chunk.css",
-    "main.js": "/reactjs-nftStackingWeb/static/js/main.e8ea4e18.chunk.js",
-    "main.js.map": "/reactjs-nftStackingWeb/static/js/main.e8ea4e18.chunk.js.map",
+    "main.js": "/reactjs-nftStackingWeb/static/js/main.df0cfd66.chunk.js",
+    "main.js.map": "/reactjs-nftStackingWeb/static/js/main.df0cfd66.chunk.js.map",
     "runtime-main.js": "/reactjs-nftStackingWeb/static/js/runtime-main.8852760c.js",
     "runtime-main.js.map": "/reactjs-nftStackingWeb/static/js/runtime-main.8852760c.js.map",
     "static/css/2.5e069dfe.chunk.css": "/reactjs-nftStackingWeb/static/css/2.5e069dfe.chunk.css",
     "static/js/2.3615ba6a.chunk.js": "/reactjs-nftStackingWeb/static/js/2.3615ba6a.chunk.js",
     "static/js/2.3615ba6a.chunk.js.map": "/reactjs-nftStackingWeb/static/js/2.3615ba6a.chunk.js.map",
     "index.html": "/reactjs-nftStackingWeb/index.html",
-    "precache-manifest.72eebbdd8ee55f8c5841f1caf348c7f2.js": "/reactjs-nftStackingWeb/precache-manifest.72eebbdd8ee55f8c5841f1caf348c7f2.js",
+    "precache-manifest.1784deb3854489ea500d90cfdcb48fc2.js": "/reactjs-nftStackingWeb/precache-manifest.1784deb3854489ea500d90cfdcb48fc2.js",
     "service-worker.js": "/reactjs-nftStackingWeb/service-worker.js",
     "static/css/2.5e069dfe.chunk.css.map": "/reactjs-nftStackingWeb/static/css/2.5e069dfe.chunk.css.map",
     "static/css/main.43af11b1.chunk.css.map": "/reactjs-nftStackingWeb/static/css/main.43af11b1.chunk.css.map",
@@ -20,6 +20,6 @@
     "static/css/2.5e069dfe.chunk.css",
     "static/js/2.3615ba6a.chunk.js",
     "static/css/main.43af11b1.chunk.css",
-    "static/js/main.e8ea4e18.chunk.js"
+    "static/js/main.df0cfd66.chunk.js"
   ]
 }

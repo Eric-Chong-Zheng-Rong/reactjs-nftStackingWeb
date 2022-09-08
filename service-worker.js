@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/reactjs-nftStackingWeb/precache-manifest.1784deb3854489ea500d90cfdcb48fc2.js"
+  "/reactjs-nftStackingWeb/precache-manifest.7251f2a10e21e24b2b284d9e61095527.js"
 );
 
 self.addEventListener('message', (event) => {

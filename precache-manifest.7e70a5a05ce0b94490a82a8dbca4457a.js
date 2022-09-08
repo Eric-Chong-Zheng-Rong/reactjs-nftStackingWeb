@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "4c71da458511134f408f052b2a13c552",
+    "revision": "6c920a2b63813ccdadf20fc7cc0d9dc3",
     "url": "/reactjs-nftStackingWeb/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/reactjs-nftStackingWeb/static/css/2.5e069dfe.chunk.css"
   },
   {
-    "revision": "27bf66cca2b19502721e",
+    "revision": "96399fc7fc3f36c24673",
     "url": "/reactjs-nftStackingWeb/static/css/main.43af11b1.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/reactjs-nftStackingWeb/static/js/2.952486c4.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "27bf66cca2b19502721e",
-    "url": "/reactjs-nftStackingWeb/static/js/main.c38556a4.chunk.js"
+    "revision": "96399fc7fc3f36c24673",
+    "url": "/reactjs-nftStackingWeb/static/js/main.68ea6fa1.chunk.js"
   },
   {
     "revision": "435fa0cecfe0742cfe42",

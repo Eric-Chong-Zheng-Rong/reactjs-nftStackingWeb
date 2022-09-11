@@ -14,6 +14,8 @@
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.20.0",
     "bootstrap": "^5.2.0",
+    "connectkit": "0.0.2",
+    "ethers": "^5.7.0",
     "i18next": "^19.4.4",
     "jquery": "^3.6.0",
     "react": "^16.14.0",
@@ -22,8 +24,10 @@
     "react-dom": "^16.13.1",
     "react-dropdown-input": "^0.1.11",
     "react-i18next": "^9.0.10",
+    "react-media": "^1.10.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1"
+    "react-scripts": "3.4.1",
+    "wagmi": "^0.6.5"
   },
   "scripts": {
     "start": "react-scripts start",

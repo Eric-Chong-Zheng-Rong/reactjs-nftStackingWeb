@@ -10,7 +10,7 @@ import Button from "react-bootstrap/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle } from "@fortawesome/free-regular-svg-icons";
 
-import Constant from "../../global/Constant.json";
+import * as Constant from "../../global/Constant.js";
 
 class ModalFailed extends Component {
   render() {

@@ -58,7 +58,7 @@
 }
 
 .row-height-100vh {
-  height: calc(100vh - 6vh);
+  min-height: calc(100vh - 6vh);
 }
 
 .col-bg-orange {
@@ -208,6 +208,10 @@
 
 .height-10vh {
   height: 10vh;
+}
+
+.height-15vh {
+  height: 15vh;
 }
 
 .height-20vh {
@@ -394,6 +398,10 @@
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+
+.width-10vw {
+  width: 10vw
 }
 
 .width-5p {

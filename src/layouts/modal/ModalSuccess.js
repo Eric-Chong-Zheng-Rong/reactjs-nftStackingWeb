@@ -16,7 +16,7 @@ import { faTrashAlt } from "@fortawesome/free-regular-svg-icons";
 import { faEdit } from "@fortawesome/free-regular-svg-icons";
 import { faTasks } from "@fortawesome/free-solid-svg-icons";
 
-import Constant from "../../global/Constant.json";
+import * as Constant from "../../global/Constant.js";
 
 class ModalSuccess extends Component {
 

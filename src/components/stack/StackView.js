@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
-import Constant from "../../global/Constant.json";
+import Media from 'react-media';
+
+// import { WagmiConfig, createClient } from "wagmi";
+// import { ConnectKitProvider, ConnectKitButton, getDefaultClient } from "connectkit";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -12,12 +15,16 @@ import ModalFailed from "../../layouts/modal/ModalFailed";
 
 class StackView extends Component {
   state = {
-    stakeInfo: {
-      numImage: 0,
-      numImageAvailable: 4,
+    accountInfo: {
+      availableCandy: 120,
+      stakedCandy: 0,
       staked: false,
       stakedDays: 0,
     },
+
+    nftInfoList: [
+      {isPlaced: false, numCandy: 0,},      
+    ],
 
     modalSuccessForm: {
       modalShow: false,
@@ -35,7 +42,7 @@ class StackView extends Component {
 
   render() {
     return (
-      <div>
+      <div className="bg-orange row-height-100vh">
         <ModalSuccess
           modalSuccessForm={this.state.modalSuccessForm}
           dynamicSetForm={this.dynamicSetForm}
@@ -45,45 +52,27 @@ class StackView extends Component {
           modalFailedForm={this.state.modalFailedForm}
           dynamicSetForm={this.dynamicSetForm}
         />
-        
-        <Container fluid className="bg-orange row-height-100vh">
-          {/* <Row className=""> */}
-            {/* <Row className="d-flex align-items-center justify-content-center"> */}
-          <br/>
-          <br/>
-          <br/>
-          <Row>
-            <Col style={{ display: "flex", justifyContent: "center" }}>
-              {/* {this.layoutPagination()} */}
-              <Col sm={4} lg={2} className="m-2 p-2 bg-none border-2-black border-radius-10">
 
-                <Col 
-                  className="height-20vh d-flex align-items-center justify-content-center"
-                  onClick={() => this.setStakeInfo("numImage", this.state.stakeInfo.numImage + 1)}
-                >
-                  <img
-                    height={150}
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/assets/candy.png"
-                    }
-                  />
-                  <h5>x{this.state.stakeInfo.numImage}</h5>
-                </Col>
-                
-              </Col>
-              <Col sm={4} lg={2} className="m-2 p-2 bg-none border-2-black border-radius-10">
-                <Col className="height-20vh d-flex align-items-center justify-content-center">
-                  <span>+</span>
-                </Col>
-              </Col>
-              
-            </Col>
-          </Row>          
+        {/* <Container fluid>
+          <WagmiConfig client={() => this.client()}>
+            <ConnectKitProvider>
+              <p>AAA</p>
+              <ConnectKitButton />
+            </ConnectKitProvider>
+          </WagmiConfig>
+        </Container> */}
+        
+        <Container className="">
+          <br/>
+          <br/>
+          <br/>
+          <Row className="p-2" style={{ display: "flex", justifyContent: "center" }}>
+            {this.mediaController()}
+          </Row>
           <br/>
           <Row>
             <Col style={{ display: "flex", justifyContent: "center" }}>
-            {(this.state.stakeInfo.staked) ? 
+            {(this.state.accountInfo.staked) ? 
               <Button
                 className=""
                 variant="secondary"
@@ -99,20 +88,19 @@ class StackView extends Component {
                 onClick={() => this.actionStack()}
               >
               Stack
-              </Button>}
-              
+              </Button>} 
             </Col>
           </Row>
           <br/>
           <Row>
               <Col style={{ display: "flex", justifyContent: "center" }}>
-                {(this.state.stakeInfo.staked) ? 
+                {(this.state.accountInfo.staked) ? 
                 <h5 className="font-weight-bold"
-                  onClick={() => this.setStakeInfo("stakedDays", this.state.stakeInfo.stakedDays + 10)}>
-                  Days Staked : {this.state.stakeInfo.stakedDays}
+                  onClick={() => this.setAccountInfo("stakedDays", this.state.accountInfo.stakedDays + 10)}>
+                  Days Staked : {this.state.accountInfo.stakedDays}
                 </h5> : 
                 <h5 className="font-weight-bold">
-                  Candies Available : {this.state.stakeInfo.numImageAvailable}
+                  Candies Available : {this.state.accountInfo.availableCandy}
                 </h5>}
                 
               </Col>
@@ -124,7 +112,199 @@ class StackView extends Component {
   }
 
   // Layout function
+  mediaController = () => {
+    // dynamic controlling candy box
+    let nftInfoList = [...this.state.nftInfoList];
 
+    const divDisplayCandy = (value) => {
+      return (
+        <div className="p-2 m-1 height-20vh bg-none border-2-black border-radius-10 d-flex align-items-center justify-content-center">
+          <img className="height-10vh"
+            src={
+              process.env.PUBLIC_URL +
+              "/assets/candy.png"
+            }
+          />
+          <h5>x{value.numCandy}</h5>
+        </div>
+      )
+    }
+
+    const divBtnPlaceCandy = (index) => {
+      return (
+        <div className="p-2 m-1 height-20vh bg-none border-2-black border-radius-10 d-flex align-items-center justify-content-center"
+          onClick={() => this.actionCandyPlace(index)}>
+          <div className="text-center">
+            <h3>Click To Place Candy</h3>
+          </div>
+        </div>
+      )
+    }
+
+    const divBtnAddCandyBox = () => {
+      return (
+        <div className="p-2 m-1 height-20vh bg-none border-2-black border-radius-10 d-flex align-items-center justify-content-center"
+          onClick={() => this.actionAddNewNftInfoObject()}>
+          <span>+</span>
+        </div>
+      )
+    }
+
+    return (
+      <Media
+          queries={{
+            xsm: "(max-width: 575px)",
+            sm: "(min-width: 576px) and (max-width: 767px)",
+            md: "(min-width: 768px) and (max-width: 991px)",
+            lg: "(min-width: 992px)",
+          }}
+        >
+          {(matches) => 
+            matches.xsm ? (
+              <>
+                {nftInfoList.map((value, index) => (
+                    <>
+                      {value.isPlaced ? 
+                      <Col sm={12}>                        
+                        {divDisplayCandy(value)}
+                      </Col> :
+                      <Col sm={12}>
+                        {divBtnPlaceCandy(index)}
+                      </Col>
+                      }
+
+                      {(!this.state.accountInfo.staked && nftInfoList.length -1 == index) ? 
+                      <Col sm={12}>
+                        {divBtnAddCandyBox()}
+                      </Col> :
+                      <></>}
+                    </>
+                  ))
+                }
+              </>
+            ) :          
+            matches.sm ? (
+              <>
+                {nftInfoList.map((value, index) => (
+                    <>
+                      {value.isPlaced ? 
+                      <Col sm={6}>
+                        {divDisplayCandy(value)}
+                      </Col> :
+                      <Col sm={6}>
+                        {divBtnPlaceCandy(index)}
+                      </Col>
+                      }
+
+                      {(!this.state.accountInfo.staked && nftInfoList.length -1 == index) ? 
+                      <Col sm={6}>
+                        {divBtnAddCandyBox()}
+                      </Col> :
+                      <></>}
+                    </>
+                  ))
+                }
+              </>
+            ) :
+            matches.md ? (
+              <>
+                {nftInfoList.map((value, index) => (
+                    <>
+                      {value.isPlaced ? 
+                      <Col md={4}>
+                        {divDisplayCandy(value)}
+                      </Col> :
+                      <Col md={4}>
+                        {divBtnPlaceCandy(index)}
+                      </Col>
+                      }
+
+                      {(!this.state.accountInfo.staked && nftInfoList.length -1 == index) ? 
+                      <Col md={4}>
+                        {divBtnAddCandyBox()}
+                      </Col> :
+                      <></>}
+                    </>
+                  ))
+                }
+              </>
+            ) :
+            matches.lg ? (
+              <>
+                {nftInfoList.map((value, index) => (
+                    <>
+                      {value.isPlaced ? 
+                      <Col lg={2}>
+                        {divDisplayCandy(value)}
+                      </Col> :
+                      <Col lg={2}>
+                        {divBtnPlaceCandy(index)}
+                      </Col>
+                      }
+                      
+                      {(!this.state.accountInfo.staked && nftInfoList.length -1 == index) ? 
+                      <Col lg={2}>
+                        {divBtnAddCandyBox()}
+                      </Col> :
+                      <></>}
+                    </>
+                  ))
+                }
+              </>
+            ) : (
+              <></>
+            )
+          }
+        </Media>
+    )
+  }
+
+  layoutDynamicCandyBox = () => {
+
+    let nftInfoList = [...this.state.nftInfoList];
+    return (
+      <>
+        {nftInfoList.map((value, index) => (
+            <>
+              {(index % 4 == 4) ? <Col md={2}/> : <></>}
+              {value.isPlaced ? 
+              <Col sm={4} md={4} lg={2}>
+                <div className="p-2 m-1 height-20vh bg-none border-2-black border-radius-10 d-flex align-items-center justify-content-center">
+                  <img className="height-10vh"
+                    src={
+                      process.env.PUBLIC_URL +
+                      "/assets/candy.png"
+                    }
+                  />
+                  <h5>x{value.numCandy}</h5>
+                </div>
+              </Col> :
+              <Col sm={4} md={4} lg={2}>
+                <div className="p-2 m-1 height-20vh bg-none border-2-black border-radius-10 d-flex align-items-center justify-content-center"
+                  onClick={() => this.actionCandyPlace(index)}>
+                  <div className="text-center">
+                    <h3>Click To Place Candy</h3>
+                  </div>
+                </div>
+              </Col>
+              }
+              
+              {(index % 4 == 4) ? <Col md={2}/> : <></>}
+
+              {(!this.state.accountInfo.staked && nftInfoList.length -1 == index) ? 
+              <Col sm={4} md={4} lg={2}>
+                <div className="p-2 m-1 height-20vh bg-none border-2-black border-radius-10 d-flex align-items-center justify-content-center"
+                  onClick={() => this.actionAddNewNftInfoObject()}>
+                  <span>+</span>
+                </div>
+              </Col> :
+              <></>}
+            </>
+          ))
+        }
+      </>
+    )
+  }
   // Layout function end
 
   // API function
@@ -134,28 +314,37 @@ class StackView extends Component {
   
   // API function end
 
-  setStakeInfo = (type, value) => {
-    console.log("setStakeInfo");
+  // client = () => {
+  //   return createClient(
+  //     getDefaultClient({
+  //       appName: "Your App Name",
+  //       alchemyId : "YFyUn5aMEN_vSH49eewewAxQcIaE2V6s",
+  //     }),
+  //   );
+  // } 
+
+  setAccountInfo = (type, value) => {
+    console.log("setAccountInfo");
     console.log("type: " + type);
     console.log("value: " + value);
 
-    switch(type) {
-      case "numImage": {
-        value = (value < 4) ? value : this.state.stakeInfo.numImageAvailable;
-      };
-      break;
-    }
+    // switch(type) {
+    //   case "numImage": {
+    //     value = (value < 4) ? value : this.state.stakeInfo.numImageAvailable;
+    //   };
+    //   break;
+    // }
 
     this.setState(
       {
-        stakeInfo: {
-          ...this.state.stakeInfo,
+        accountInfo: {
+          ...this.state.accountInfo,
           [type]: value,
         },
       },
 
       console.log(
-        "stakeInfo: " + JSON.stringify(this.state.stakeInfo)
+        "accountInfo: " + JSON.stringify(this.state.accountInfo)
       )
     );
   };
@@ -179,10 +368,68 @@ class StackView extends Component {
     );
   };
 
-  actionStack = () => {
-    let stackInfo = this.state.stakeInfo;
+  actionCandyPlace = (index) => {
+    let nftInfoList = [...this.state.nftInfoList];
+    let accountInfo = {...this.state.accountInfo};
 
-    if (stackInfo.numImage < 4) {
+    if (accountInfo.availableCandy - 4 >= 0) {
+      nftInfoList[index] = { ...nftInfoList[index], isPlaced: true, numCandy: 4 };
+
+      accountInfo = {...accountInfo, 
+        availableCandy: accountInfo.availableCandy - 4,
+        stakedCandy: accountInfo.stakedCandy + 4,
+      }
+
+      this.setState({ 
+          nftInfoList: nftInfoList, 
+          accountInfo: accountInfo, 
+        }
+      )
+    } else {
+      this.setState({
+        modalFailedForm: {
+          ...this.state.modalFailedForm,
+          modalShow: true,
+          errMsg: "Insufficient Candies to be placed. 4 candies are required in order to place."
+        }
+      })
+    }
+  }
+
+  actionAddNewNftInfoObject = () => {
+    let nftInfoList = [...this.state.nftInfoList];
+
+    let lastObject = nftInfoList[nftInfoList.length -1];
+
+    if (!lastObject.isPlaced) {
+      // alert
+      this.setState({
+        modalFailedForm: {
+          ...this.state.modalFailedForm,
+          modalShow: true,
+          errMsg: "Please place candy before add a new candy box."
+        }
+      })
+    } else {
+      // add new object
+      let object = {
+        isPlaced: false, 
+        numCandy: 0
+      };
+  
+      nftInfoList = nftInfoList.concat(object);
+      this.setState(
+        { nftInfoList: nftInfoList }
+      )
+    }
+
+    
+  }
+
+  actionStack = () => {
+    let accountInfo = this.state.accountInfo;
+
+    if (accountInfo.stakedCandy < 4) {
       this.setState({
         modalFailedForm: {
           ...this.state.modalFailedForm,
@@ -191,26 +438,32 @@ class StackView extends Component {
         }
       })
     } else {
+      let nftInfoList = [...this.state.nftInfoList];
+      let lastObject = nftInfoList[nftInfoList.length - 1];
+
+      if (!lastObject.isPlaced) {
+        nftInfoList = nftInfoList.splice(0, nftInfoList.length -1);
+      }
+
       this.setState({
         modalSuccessForm: {
           ...this.state.modalSuccessForm,
           modalShow: true,
           successMsg: "Successfully staked Candies"
         },
-        stakeInfo: {
-          ...this.state.stakeInfo,
+        accountInfo: {
+          ...this.state.accountInfo,
           staked: true,
         },
-        
+        nftInfoList : nftInfoList,        
       })
-      // this.setStakeInfo("staked", true);
     }
   }
 
   actionMintZombie = () => {
-    let stackInfo = this.state.stakeInfo;
+    let accountInfo = this.state.accountInfo;
 
-    if (stackInfo.stakedDays < 30) {
+    if (accountInfo.stakedDays < 30) {
       this.setState({
         modalFailedForm: {
           ...this.state.modalFailedForm,

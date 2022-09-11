@@ -15,7 +15,7 @@ class App extends Component {
     // const { t } = this.props;
 
     return (
-      <BrowserRouter>
+      <BrowserRouter basename="reactjs-nftStackingWeb">
         <header>
           <Header />
         </header>
